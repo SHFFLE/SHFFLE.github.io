@@ -136,12 +136,6 @@
         #blended {
             opacity: 0.4;
         }
-        .music {
-            display:none;
-        }
-        .music .active {
-            display: inline;
-        }
     </style>
 </head>
 <body>
@@ -211,7 +205,7 @@
         var randomized = '';
         var entered = '';
         var clickable = false;
-        var gameactive = false;
+        var gameActive = false;
         var score = 0;
         var red = $('#red');
         var blue = $('#blue');
@@ -269,10 +263,12 @@
         var randomizer = function(){return Math.floor(Math.random() * 4)};
 
         start.click(function(){
-            gameactive = true;
+            gameActive = true;
             randomized = '';
             entered = '';
+            score = 0;
             alert("Starting now!");
+            start.text("Reset");
             animateOld();
         });
         red.click(function(){
@@ -287,7 +283,8 @@
                     sound.play('error');
                     alert("You lose! Score: "+ score + " || Try again.");
                     score = 0;
-                    gameactive = false;
+                    start.text('Start');
+                    gameActive = false;
                 } else if (entered == randomized) {
                     sound.play('red');
                     setTimeout(function(){animateOld();}, 1500);
@@ -311,7 +308,8 @@
                     sound.play('error');
                     alert("You lose! Score: "+ score + " || Try again.");
                     score = 0;
-                    gameactive = false;
+                    start.text('Start');
+                    gameActive = false;
                 } else if (entered == randomized) {
                     sound.play('blue');
                     setTimeout(function(){animateOld();}, 1500);
@@ -335,7 +333,8 @@
                     sound.play('error');
                     alert("You lose! Score: "+ score + " || Try again.");
                     score = 0;
-                    gameactive = false;
+                    start.text('Start');
+                    gameActive = false;
                 } else if (entered == randomized) {
                     sound.play('green');
                     setTimeout(function(){animateOld();}, 1500);
@@ -359,7 +358,8 @@
                     sound.play('error');
                     alert("You lose! Score: "+ score + " || Try again.");
                     score = 0;
-                    gameactive = false;
+                    start.text('Start');
+                    gameActive = false;
                 } else if (entered == randomized) {
                     sound.play('yellow');
                     setTimeout(function(){animateOld();}, 1500);
@@ -390,7 +390,6 @@
             var i = 0;
             rgby();
             var IntervalOne = setInterval(function () {
-                var color = randomized.charAt(i);
                 if (randomized.charAt(i) == 'r') {
                     red.fadeOut(300).fadeIn(300);
                     sound.play('red');
@@ -428,20 +427,20 @@
 //
         var dranks = $('#dranks');
         var adelhyde = $('#adelhyde');
-        var adelhydecount = $('#adelhydecount');
-        var adelhydecountvalue = 0;
+        var adelhydeCount = $('#adelhydecount');
+        var adelhydeCountValue = 0;
         var bronson = $('#bronson');
-        var bronsoncount = $('#bronsoncount');
-        var bronsoncountvalue = 0;
+        var bronsonCount = $('#bronsoncount');
+        var bronsonCountValue = 0;
         var delta = $('#delta');
-        var deltacount = $('#deltacount');
-        var deltacountvalue = 0;
+        var deltaCount = $('#deltacount');
+        var deltaCountValue = 0;
         var flanergide = $('#flanergide');
-        var flanergidecount = $('#flanergidecount');
-        var flanergidecountvalue = 0;
+        var flanergideCount = $('#flanergidecount');
+        var flanergideCountValue = 0;
         var karmotrine = $('#karmotrine');
-        var karmotrinecount = $('#karmotrinecount');
-        var karmotrinecountvalue = 0;
+        var karmotrineCount = $('#karmotrinecount');
+        var karmotrineCountValue = 0;
         var rocks = $('#rocks');
         var age = $('#age');
         var mixer = $('#mixed');
@@ -454,7 +453,7 @@
         var description = $('#description');
         var tags = $('#tags');
         var mix = [];
-        var mixingdrinksandchanginglives = false;
+        var mixingDrinksAndChangingLives = false;
         var left = $('#left');
         var right = $('#right');
         var i = 0;
@@ -487,14 +486,16 @@
 //        Initializes the second game - the entirety of the second game exists largely as a random decision of mine to give it a try.
 
         cbam.click(function(){
-            if(clickable == true || gameactive == false) {
+            if(clickable == true || gameActive == false) {
                 sound.play('start');
-                if (mixingdrinksandchanginglives == false) {
-                    mixingdrinksandchanginglives = true;
+                if (mixingDrinksAndChangingLives == false) {
+                    mixingDrinksAndChangingLives = true;
                     entered = '';
                     randomized = '';
                     score = 0;
                     clickable = false;
+                    gameActive = false;
+                    start.text('Start');
                     red.fadeOut(500);
                     blue.fadeOut(500);
                     green.fadeOut(500);
@@ -511,8 +512,8 @@
                     recipe.html(recipes[i].recipeStr);
                     description.html(recipes[i].description);
                     tags.html(recipes[i].tags);
-                } else if (mixingdrinksandchanginglives == true) {
-                    mixingdrinksandchanginglives = false;
+                } else if (mixingDrinksAndChangingLives == true) {
+                    mixingDrinksAndChangingLives = false;
                     red.fadeIn(1000);
                     blue.fadeIn(1000);
                     green.fadeIn(1000);
@@ -554,7 +555,7 @@
         });
 
         adelhyde.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 var instances = foo(mix);
                 var instance = instances[0];
@@ -565,14 +566,14 @@
                     sound.play('ingredient');
                     console.log("Adding Adelhyde");
                     mix.push("Adelhyde");
-                    adelhydecountvalue ++;
-                    adelhydecount.html(adelhydecountvalue);
+                    adelhydeCountValue ++;
+                    adelhydeCount.html(adelhydeCountValue);
                 }
             }
         });
 
         bronson.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 var instances = foo(mix);
                 var instance = instances[0];
@@ -583,14 +584,14 @@
                     sound.play('ingredient');
                     console.log("Adding Bronson");
                     mix.push("Bronson");
-                    bronsoncountvalue ++;
-                    bronsoncount.html(bronsoncountvalue);
+                    bronsonCountValue ++;
+                    bronsonCount.html(bronsonCountValue);
                 }
             }
         });
 
         delta.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 var instances = foo(mix);
                 var instance = instances[0];
@@ -601,14 +602,14 @@
                     sound.play('ingredient');
                     console.log("Adding Delta");
                     mix.push("Delta");
-                    deltacountvalue ++;
-                    deltacount.html(deltacountvalue);
+                    deltaCountValue ++;
+                    deltaCount.html(deltaCountValue);
                 }
             }
         });
 
         flanergide.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 var instances = foo(mix);
                 var instance = instances[0];
@@ -619,14 +620,14 @@
                     sound.play('ingredient');
                     console.log("Adding Flanergide");
                     mix.push("Flanergide");
-                    flanergidecountvalue ++;
-                    flanergidecount.html(flanergidecountvalue);
+                    flanergideCountValue ++;
+                    flanergideCount.html(flanergideCountValue);
                 }
             }
         });
 
         karmotrine.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 var instances = foo(mix);
                 var instance = instances[0];
@@ -637,14 +638,14 @@
                     sound.play('ingredient');
                     console.log("Adding Karmotrine");
                     mix.push("Karmotrine");
-                    karmotrinecountvalue ++;
-                    karmotrinecount.html(karmotrinecountvalue);
+                    karmotrineCountValue ++;
+                    karmotrineCount.html(karmotrineCountValue);
                 }
             }
         });
 
         rocks.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 if(mix.indexOf("Rocks") >= 0 ){
                     mix.splice(mix.indexOf("Rocks"));
@@ -658,7 +659,7 @@
         });
 
         age.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 if(mix.indexOf("Age") >= 0 ){
                     mix.splice(mix.indexOf("Age"));
@@ -672,7 +673,7 @@
         });
 
         blend.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else {
                 if(mix.indexOf("Blend") >= 0 ){
                     mix.splice(mix.indexOf("Blend"));
@@ -685,20 +686,20 @@
         });
 
         reset.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else if(mix == []){
             } else {
                 sound.play('mixed');
-                adelhydecountvalue = 0;
-                adelhydecount.html(adelhydecountvalue);
-                bronsoncountvalue = 0;
-                bronsoncount.html(bronsoncountvalue);
-                deltacountvalue = 0;
-                deltacount.html(deltacountvalue);
-                flanergidecountvalue = 0;
-                flanergidecount.html(flanergidecountvalue);
-                karmotrinecountvalue = 0;
-                karmotrinecount.html(karmotrinecountvalue);
+                adelhydeCountValue = 0;
+                adelhydeCount.html(adelhydeCountValue);
+                bronsonCountValue = 0;
+                bronsonCount.html(bronsonCountValue);
+                deltaCountValue = 0;
+                deltaCount.html(deltaCountValue);
+                flanergideCountValue = 0;
+                flanergideCount.html(flanergideCountValue);
+                karmotrineCountValue = 0;
+                karmotrineCount.html(karmotrineCountValue);
                 rocks.html("<img src='img/rocksinactive.png'>");
                 age.html("<img src='img/ageinactive.png'>");
                 blend.css("opacity", "0.4");
@@ -709,7 +710,7 @@
 //        Does the actual comparison to see if the current mix matches any recipes.
 
         mixer.click(function(){
-            if(mixingdrinksandchanginglives == false){
+            if(mixingDrinksAndChangingLives == false){
             } else if(mix == []){
             } else {
                 sound.play('mixed');
@@ -720,16 +721,16 @@
                     if(recipes[i].recipe.toString() == mix.toString()){
                         alert("You made a " + recipes[i].name + "! Good work!");
                         result = true;
-                        adelhydecountvalue = 0;
-                        adelhydecount.html(adelhydecountvalue);
-                        bronsoncountvalue = 0;
-                        bronsoncount.html(bronsoncountvalue);
-                        deltacountvalue = 0;
-                        deltacount.html(deltacountvalue);
-                        flanergidecountvalue = 0;
-                        flanergidecount.html(flanergidecountvalue);
-                        karmotrinecountvalue = 0;
-                        karmotrinecount.html(karmotrinecountvalue);
+                        adelhydeCountValue = 0;
+                        adelhydeCount.html(adelhydeCountValue);
+                        bronsonCountValue = 0;
+                        bronsonCount.html(bronsonCountValue);
+                        deltaCountValue = 0;
+                        deltaCount.html(deltaCountValue);
+                        flanergideCountValue = 0;
+                        flanergideCount.html(flanergideCountValue);
+                        karmotrineCountValue = 0;
+                        karmotrineCount.html(karmotrineCountValue);
                         rocks.html("<img src='img/rocksinactive.png'>");
                         age.html("<img src='img/ageinactive.png'>");
                         blend.css("opacity", "0.4");
@@ -743,16 +744,16 @@
                 }
                 if (result == false){
                     alert("You messed it up!");
-                    adelhydecountvalue = 0;
-                    adelhydecount.html(adelhydecountvalue);
-                    bronsoncountvalue = 0;
-                    bronsoncount.html(bronsoncountvalue);
-                    deltacountvalue = 0;
-                    deltacount.html(deltacountvalue);
-                    flanergidecountvalue = 0;
-                    flanergidecount.html(flanergidecountvalue);
-                    karmotrinecountvalue = 0;
-                    karmotrinecount.html(karmotrinecountvalue);
+                    adelhydeCountValue = 0;
+                    adelhydeCount.html(adelhydeCountValue);
+                    bronsonCountValue = 0;
+                    bronsonCount.html(bronsonCountValue);
+                    deltaCountValue = 0;
+                    deltaCount.html(deltaCountValue);
+                    flanergideCountValue = 0;
+                    flanergideCount.html(flanergideCountValue);
+                    karmotrineCountValue = 0;
+                    karmotrineCount.html(karmotrineCountValue);
                     results.fadeOut(0);
                     results.html("<img src='img/garbage.png'>");
                     results.fadeIn(1500);
