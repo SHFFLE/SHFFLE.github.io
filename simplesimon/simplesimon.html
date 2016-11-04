@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simon</title>
+    <style>
+        body {
+            background-color: lightslategrey;
+            background-image: url("img/gcjill.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%, 100%;
+        }
+        #buttonscontainer{
+            position:relative;
+            width: 80%;
+            height: 80%;
+            margin: auto;
+        }
+        div {
+            position: absolute;
+            height: auto;
+            width: auto;
+            max-width: 50%;
+            max-height: 100%;
+            margin: 0;
+            color: white;
+        }
+        #red {
+            top: 0;
+            left: 0;
+        }
+        #green {
+            top: 0;
+            left: 50%;
+        }
+        #blue {
+            top: 50%;
+            left: 0;
+        }
+        #yellow {
+            top:50%;
+            left: 50%;
+        }
+        button {
+            margin-left: 25%;
+            width: 50%;
+            height: 20%;
+            font-size: 15vh;
+        }
+        #backgroundsquares {
+            height: auto;
+            width: auto;
+            max-width: 100%;
+            max-height: 100%;
+            z-index: -1;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        audio {
+            float: right;
+            width: 400px;
+        }
+        #cbam {
+            font-size: 12px;
+            color: white;
+        }
+        #dranks {
+            position: relative;
+            float:left;
+            width: 50%;
+            background-color: rgba(145, 144, 142, 0.5);
+
+
+        }
+        #dranks div {
+            position: relative;
+            height: auto;
+            width: 20%;
+            max-width: 20%;
+            max-height: 100%;
+            color: white;
+            float: left;
+        }
+        #dranks img {
+            width: 75%;
+            margin-left: 12.5%;
+        }
+        #display {
+            position: relative;
+            float: right;
+            width: 45%;
+            background-color: rgba(145, 144, 142, 0.95);
+            padding-left: 5px;
+        }
+        #display div {
+            position:relative;
+            color: white;
+            width: 100%;
+            max-width: 100%;
+            font-size: 2em;
+            margin-bottom: 2em;
+        }
+        #display button {
+            display: inline;
+            width: 50%;
+            margin: 0;
+        }
+        .radelhyde {
+            color: red;
+        }
+        .ybronson {
+            color: yellow;
+        }
+        .bdelta {
+            color: blue;
+        }
+        .gflanergide {
+            color: green;
+        }
+        .ltbluekarmotrine {
+            color: lightblue;
+        }
+        #dranks .count {
+            font-size: 2em;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
+        }
+        #result {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+        }
+        #blended {
+            opacity: 0.4;
+        }
+        .music {
+            display:none;
+        }
+        .music .active {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<audio id="music" preload controls src="sounds/KarmotrineDream.mp3"></audio>
+
+<!-- Simon -->
+
+<div id="buttonscontainer">
+    <img id="backgroundsquares" src="img/squares.png">
+    <div id="red"><img src="img/red.png"></div>
+    <div id="green"><img src="img/green.png"></div>
+    <div id="blue"><img src="img/blue.png"></div>
+    <div id="yellow"><img src="img/yellow.png"></div>
+</div>
+<button id="start">Start</button>
+
+<!-- Super less than secret second game! :O -->
+
+<h1 id="cbam">Cyberpunk Bartender Action Mode</h1>
+<div id="dranks">
+    <div id="adelhyde">
+        <div class="count radelhyde">Adelhyde</div>
+        <img src="img/adelhyde.png" alt="">
+        <div id="adelhydecount" class="count">0</div>
+    </div>
+    <div id="bronson">
+        <div class="count ybronson">Bronson Extract</div>
+        <img src="img/bronsonextract.png" alt="">
+        <div id="bronsoncount" class="count">0</div>
+    </div>
+    <div id="delta">
+        <div class="count bdelta">Powdered Delta</div>
+        <img src="img/powdereddelta.png" alt="">
+        <div id="deltacount" class="count">0</div>
+    </div>
+    <div id="flanergide">
+        <div class="count gflanergide">Flanergide</div>
+        <img src="img/flanergide.png" alt="">
+        <div id="flanergidecount" class="count">0</div>
+    </div>
+    <div id="karmotrine">
+        <div class="count ltbluekarmotrine">Karmotrine</div>
+        <img src="img/karmotrine.png" alt="">
+        <div id="karmotrinecount" class="count">0</div>
+    </div>
+    <div id="rocks"><img src="img/rocksinactive.png" alt=""></div>
+    <div id="age"><img src="img/ageinactive.png" alt=""></div>
+    <div id="blended"><img src="img/mixer.png"></div>
+    <div id="mixed"><img src="img/mix.png" alt=""></div>
+    <div id="reset"><img src="img/reset.png"></div>
+</div>
+<div id="display">
+    <button id="left"><--</button><button id="right">--></button>
+    <div id="id"></div>
+    <div id="drink"></div>
+    <div id="recipe"></div>
+    <div id="description"></div>
+    <div id="tags"></div>
+</div>
+<div id="result"></div>
+
+
+<script src="js/recipes.js"></script>
+<script src="js/howler.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+        var randomized = '';
+        var entered = '';
+        var clickable = false;
+        var gameactive = false;
+        var score = 0;
+        var red = $('#red');
+        var blue = $('#blue');
+        var green = $('#green');
+        var yellow = $('#yellow');
+        var background = $('#backgroundsquares');
+        var start = $('#start');
+
+//        Soundsprite to allow sound effects to overlap each other and the background music
+
+        var sound = new Howl({
+            src: ['sounds/soundsprite.ogg'],
+            sprite: {
+                error: [0, 1500],
+                red: [2000, 2000],
+                blue: [4000, 2500],
+                green: [7000, 1000],
+                yellow: [8000, 1000],
+                start: [9000, 2000],
+                mixed: [12000, 4000],
+                ice: [16000, 1000],
+                age: [17000, 2000],
+                ingredient: [19000, 2000]
+            }
+        });
+
+
+        var music = document.getElementById('music');
+        var musici = 0;
+        setTimeout(function(){music.play()}, 1000);
+        musici ++;
+        music.volume = 0.6;
+
+        music.addEventListener('ended', function(e){
+            if(musici == 3){
+                musici = 0;
+            }
+            if(musici == 0){
+                music.setAttribute("src", "sounds/KarmotrineDream.mp3");
+                setTimeout(function(){music.play()});
+                setTimeout(function(){musici ++}, 2000);
+            } else if(musici == 1){
+                music.setAttribute("src", "sounds/Welcome.mp3");
+                setTimeout(function(){music.play()});
+                setTimeout(function(){musici ++}, 2000);
+            } else if (musici == 2){
+                music.setAttribute("src", "sounds/FriendlyConversation.mp3");
+                setTimeout(function(){music.play()});
+                setTimeout(function(){musici ++}, 2000);
+            }
+        });
+
+//        Simon code vv
+
+        var randomizer = function(){return Math.floor(Math.random() * 4)};
+
+        start.click(function(){
+            gameactive = true;
+            randomized = '';
+            entered = '';
+            alert("Starting now!");
+            animateOld();
+        });
+        red.click(function(){
+            if(clickable == false) {
+            } else {
+                entered += "r";
+                red.fadeOut(100).fadeIn(100);
+                clickable = false;
+                if(entered.substring(0) != randomized.substring(0, entered.length)){
+                    entered = '';
+                    randomized = '';
+                    sound.play('error');
+                    alert("You lose! Score: "+ score + " || Try again.");
+                    score = 0;
+                    gameactive = false;
+                } else if (entered == randomized) {
+                    sound.play('red');
+                    setTimeout(function(){animateOld();}, 1500);
+                    entered = '';
+                    score ++;
+                } else {
+                    sound.play('red');
+                    clickable = true;
+                }
+            }
+        });
+        blue.click(function(){
+            if(clickable == false) {
+            } else {
+                entered += "b";
+                blue.fadeOut(100).fadeIn(100);
+                clickable = false;
+                if(entered.substring(0) != randomized.substring(0, entered.length)){
+                    entered = '';
+                    randomized = '';
+                    sound.play('error');
+                    alert("You lose! Score: "+ score + " || Try again.");
+                    score = 0;
+                    gameactive = false;
+                } else if (entered == randomized) {
+                    sound.play('blue');
+                    setTimeout(function(){animateOld();}, 1500);
+                    entered = '';
+                    score ++;
+                } else {
+                    sound.play('blue');
+                    clickable = true;
+                }
+            }
+        });
+        green.click(function(){
+            if(clickable == false) {
+            } else {
+                entered += "g";
+                green.fadeOut(100).fadeIn(100);
+                clickable = false;
+                if(entered.substring(0) != randomized.substring(0, entered.length)){
+                    entered = '';
+                    randomized = '';
+                    sound.play('error');
+                    alert("You lose! Score: "+ score + " || Try again.");
+                    score = 0;
+                    gameactive = false;
+                } else if (entered == randomized) {
+                    sound.play('green');
+                    setTimeout(function(){animateOld();}, 1500);
+                    entered = '';
+                    score ++;
+                } else {
+                    sound.play('green');
+                    clickable = true;
+                }
+            }
+        });
+        yellow.click(function(){
+            if(clickable == false) {
+            } else {
+                entered += "y";
+                yellow.fadeOut(100).fadeIn(100);
+                clickable = false;
+                if(entered.substring(0) != randomized.substring(0, entered.length)){
+                    entered = '';
+                    randomized = '';
+                    sound.play('error');
+                    alert("You lose! Score: "+ score + " || Try again.");
+                    score = 0;
+                    gameactive = false;
+                } else if (entered == randomized) {
+                    sound.play('yellow');
+                    setTimeout(function(){animateOld();}, 1500);
+                    entered = '';
+                    score ++;
+                } else {
+                    sound.play('yellow');
+                    clickable = true;
+                }
+
+            }
+        });
+
+
+        function rgby() {
+            var random = randomizer();
+            if(random == 0){
+                randomized += 'r';
+            } else if (random == 1) {
+                randomized += 'g';
+            } else if (random == 2) {
+                randomized += 'b';
+            } else {
+                randomized += 'y';
+            }
+        }
+        function animateOld() {
+            var i = 0;
+            rgby();
+            var IntervalOne = setInterval(function () {
+                var color = randomized.charAt(i);
+                if (randomized.charAt(i) == 'r') {
+                    red.fadeOut(300).fadeIn(300);
+                    sound.play('red');
+                } else if (randomized.charAt(i) == 'g') {
+                    green.fadeOut(300).fadeIn(300);
+                    sound.play('green');
+                } else if (randomized.charAt(i) == 'b') {
+                    blue.fadeOut(300).fadeIn(300);
+                    sound.play('blue');
+                } else if (randomized.charAt(i) == 'y') {
+                    yellow.fadeOut(300).fadeIn(300);
+                    sound.play('yellow');
+                }
+                if (i == randomized.length - 1) {
+                    clearInterval(IntervalOne);
+                    clickable = true;
+                } else {
+                    i++;
+                }
+            }, 800);
+        }
+
+//        Start code for second game
+//
+//        DDDDDDD      RRRRRR     IIIIIIIII   NNNN     NNN   KKKK     KK   SSSSSSS
+//        DD    DDD    RR  RRR        I       NNNNN    NNN   KKKK    KK    SS
+//        DD     DD    RR   RRR       I       NNN NN   NNN   KKKK   KK     SS
+//        DD     DDD   RR  RR         I       NNN  NN  NNN   KKKK  KK      SSSSSSS
+//        DD     DD    RRRRR          I       NNN   NN NNN   KKKKKKK            SS
+//        DD    DDD    RR  RR         I       NNN    NNNNN   KKKK  KK           SS
+//        DDDDDDD      RR   RR    IIIIIIIII   NNN     NNNN   KKKK   KK     SSSSSSS
+//
+//
+//
+//
+        var dranks = $('#dranks');
+        var adelhyde = $('#adelhyde');
+        var adelhydecount = $('#adelhydecount');
+        var adelhydecountvalue = 0;
+        var bronson = $('#bronson');
+        var bronsoncount = $('#bronsoncount');
+        var bronsoncountvalue = 0;
+        var delta = $('#delta');
+        var deltacount = $('#deltacount');
+        var deltacountvalue = 0;
+        var flanergide = $('#flanergide');
+        var flanergidecount = $('#flanergidecount');
+        var flanergidecountvalue = 0;
+        var karmotrine = $('#karmotrine');
+        var karmotrinecount = $('#karmotrinecount');
+        var karmotrinecountvalue = 0;
+        var rocks = $('#rocks');
+        var age = $('#age');
+        var mixer = $('#mixed');
+        var reset = $('#reset');
+        var blend = $('#blended');
+        var display = $('#display');
+        var id = $('#id');
+        var drink = $('#drink');
+        var recipe = $('#recipe');
+        var description = $('#description');
+        var tags = $('#tags');
+        var mix = [];
+        var mixingdrinksandchanginglives = false;
+        var left = $('#left');
+        var right = $('#right');
+        var i = 0;
+        var cbam = $('#cbam');
+        var results = $('#result');
+
+        console.log(recipes);
+        dranks.fadeOut(0);
+        display.fadeOut(0);
+
+//        Checks for instances of each ingredient in the current mixture
+
+        function foo(arr) {
+            var a = [], b = [], prev;
+
+            arr.sort();
+            for ( var i = 0; i < arr.length; i++ ) {
+                if ( arr[i] !== prev ) {
+                    a.push(arr[i]);
+                    b.push(1);
+                } else {
+                    b[b.length-1]++;
+                }
+                prev = arr[i];
+            }
+
+            return [a, b];
+        }
+
+//        Initializes the second game - the entirety of the second game exists largely as a random decision of mine to give it a try.
+
+        cbam.click(function(){
+            if(clickable == true || gameactive == false) {
+                sound.play('start');
+                if (mixingdrinksandchanginglives == false) {
+                    mixingdrinksandchanginglives = true;
+                    entered = '';
+                    randomized = '';
+                    score = 0;
+                    clickable = false;
+                    red.fadeOut(500);
+                    blue.fadeOut(500);
+                    green.fadeOut(500);
+                    yellow.fadeOut(500);
+                    background.fadeOut(500);
+                    start.fadeOut(500);
+                    cbam.html("Cyberpunk Bartender Mode Engaged!");
+                    cbam.css("font-size", "50px");
+                    cbam.css("text-align", "center");
+                    dranks.fadeIn(1000);
+                    display.fadeIn(1000);
+                    id.html("ID: " + recipes[i].id);
+                    drink.html(recipes[i].name);
+                    recipe.html(recipes[i].recipeStr);
+                    description.html(recipes[i].description);
+                    tags.html(recipes[i].tags);
+                } else if (mixingdrinksandchanginglives == true) {
+                    mixingdrinksandchanginglives = false;
+                    red.fadeIn(1000);
+                    blue.fadeIn(1000);
+                    green.fadeIn(1000);
+                    yellow.fadeIn(1000);
+                    background.fadeIn(1000);
+                    start.fadeIn(1000);
+                    cbam.html("Ok, loser, <em>don't</em> play the game I painstakingly coded in. Meanie.")
+                    cbam.css("font-size", "15px");
+                    cbam.css("text-align", "left");
+                    dranks.fadeOut(500);
+                    display.fadeOut(500);
+                }
+            }
+        });
+
+        left.click(function(){
+            i--;
+            if(i < 0){
+                i = 0;
+            }
+            id.html("ID: " + recipes[i].id);
+            drink.html(recipes[i].name);
+            recipe.html(recipes[i].recipeStr);
+            description.html(recipes[i].description);
+            tags.html(recipes[i].tags);
+
+        });
+        right.click(function(){
+            i++;
+            if(i > recipes.length - 1){
+                i = recipes.length - 1;
+            }
+            id.html("ID: " + recipes[i].id);
+            drink.html(recipes[i].name);
+            recipe.html(recipes[i].recipeStr);
+            description.html(recipes[i].description);
+            tags.html(recipes[i].tags);
+
+        });
+
+        adelhyde.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                var instances = foo(mix);
+                var instance = instances[0];
+                var number = instances[1];
+                if(number[instance.indexOf("Adelhyde")] == 20) {
+                    console.log("No more room for Adelhyde");
+                } else{
+                    sound.play('ingredient');
+                    console.log("Adding Adelhyde");
+                    mix.push("Adelhyde");
+                    adelhydecountvalue ++;
+                    adelhydecount.html(adelhydecountvalue);
+                }
+            }
+        });
+
+        bronson.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                var instances = foo(mix);
+                var instance = instances[0];
+                var number = instances[1];
+                if(number[instance.indexOf("Bronson")] == 20) {
+                    console.log("No more room for Bronson");
+                } else{
+                    sound.play('ingredient');
+                    console.log("Adding Bronson");
+                    mix.push("Bronson");
+                    bronsoncountvalue ++;
+                    bronsoncount.html(bronsoncountvalue);
+                }
+            }
+        });
+
+        delta.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                var instances = foo(mix);
+                var instance = instances[0];
+                var number = instances[1];
+                if(number[instance.indexOf("Delta")] == 20) {
+                    console.log("No more room for Delta");
+                } else{
+                    sound.play('ingredient');
+                    console.log("Adding Delta");
+                    mix.push("Delta");
+                    deltacountvalue ++;
+                    deltacount.html(deltacountvalue);
+                }
+            }
+        });
+
+        flanergide.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                var instances = foo(mix);
+                var instance = instances[0];
+                var number = instances[1];
+                if(number[instance.indexOf("Flanergide")] == 20) {
+                    console.log("No more room for Flanergide");
+                } else{
+                    sound.play('ingredient');
+                    console.log("Adding Flanergide");
+                    mix.push("Flanergide");
+                    flanergidecountvalue ++;
+                    flanergidecount.html(flanergidecountvalue);
+                }
+            }
+        });
+
+        karmotrine.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                var instances = foo(mix);
+                var instance = instances[0];
+                var number = instances[1];
+                if(number[instance.indexOf("Karmotrine")] == 20) {
+                    console.log("No more room for Karmotrine");
+                } else{
+                    sound.play('ingredient');
+                    console.log("Adding Karmotrine");
+                    mix.push("Karmotrine");
+                    karmotrinecountvalue ++;
+                    karmotrinecount.html(karmotrinecountvalue);
+                }
+            }
+        });
+
+        rocks.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                if(mix.indexOf("Rocks") >= 0 ){
+                    mix.splice(mix.indexOf("Rocks"));
+                    rocks.html("<img src='img/rocksinactive.png'>");
+                } else {
+                    sound.play('ice');
+                    mix.push("Rocks");
+                    rocks.html("<img src='img/rocks.png'>");
+                }
+            }
+        });
+
+        age.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                if(mix.indexOf("Age") >= 0 ){
+                    mix.splice(mix.indexOf("Age"));
+                    age.html("<img src='img/ageinactive.png'>");
+                } else {
+                    sound.play('age');
+                    mix.push("Age");
+                    age.html("<img src='img/age.png'>");
+                }
+            }
+        });
+
+        blend.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else {
+                if(mix.indexOf("Blend") >= 0 ){
+                    mix.splice(mix.indexOf("Blend"));
+                    blend.css("opacity", "0.4");
+                } else {
+                    mix.push("Blend");
+                    blend.css("opacity", "1");
+                }
+            }
+        });
+
+        reset.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else if(mix == []){
+            } else {
+                sound.play('mixed');
+                adelhydecountvalue = 0;
+                adelhydecount.html(adelhydecountvalue);
+                bronsoncountvalue = 0;
+                bronsoncount.html(bronsoncountvalue);
+                deltacountvalue = 0;
+                deltacount.html(deltacountvalue);
+                flanergidecountvalue = 0;
+                flanergidecount.html(flanergidecountvalue);
+                karmotrinecountvalue = 0;
+                karmotrinecount.html(karmotrinecountvalue);
+                rocks.html("<img src='img/rocksinactive.png'>");
+                age.html("<img src='img/ageinactive.png'>");
+                blend.css("opacity", "0.4");
+                mix = [];
+            }
+        });
+
+//        Does the actual comparison to see if the current mix matches any recipes.
+
+        mixer.click(function(){
+            if(mixingdrinksandchanginglives == false){
+            } else if(mix == []){
+            } else {
+                sound.play('mixed');
+                mix.push("Mixed");
+                var result = false;
+                mix.sort();
+                for(i = 0; i < recipes.length; i++){
+                    if(recipes[i].recipe.toString() == mix.toString()){
+                        alert("You made a " + recipes[i].name + "! Good work!");
+                        result = true;
+                        adelhydecountvalue = 0;
+                        adelhydecount.html(adelhydecountvalue);
+                        bronsoncountvalue = 0;
+                        bronsoncount.html(bronsoncountvalue);
+                        deltacountvalue = 0;
+                        deltacount.html(deltacountvalue);
+                        flanergidecountvalue = 0;
+                        flanergidecount.html(flanergidecountvalue);
+                        karmotrinecountvalue = 0;
+                        karmotrinecount.html(karmotrinecountvalue);
+                        rocks.html("<img src='img/rocksinactive.png'>");
+                        age.html("<img src='img/ageinactive.png'>");
+                        blend.css("opacity", "0.4");
+                        mix = [];
+                        results.fadeOut(0);
+                        results.html(recipes[i].img);
+                        results.fadeIn(1500);
+                        results.fadeOut(1500);
+                        break;
+                    }
+                }
+                if (result == false){
+                    alert("You messed it up!");
+                    adelhydecountvalue = 0;
+                    adelhydecount.html(adelhydecountvalue);
+                    bronsoncountvalue = 0;
+                    bronsoncount.html(bronsoncountvalue);
+                    deltacountvalue = 0;
+                    deltacount.html(deltacountvalue);
+                    flanergidecountvalue = 0;
+                    flanergidecount.html(flanergidecountvalue);
+                    karmotrinecountvalue = 0;
+                    karmotrinecount.html(karmotrinecountvalue);
+                    results.fadeOut(0);
+                    results.html("<img src='img/garbage.png'>");
+                    results.fadeIn(1500);
+                    results.fadeOut(1500);
+                    rocks.html("<img src='img/rocksinactive.png'>");
+                    age.html("<img src='img/ageinactive.png'>");
+                    blend.css("opacity", "0.4");
+                    mix = [];
+                }
+            }
+        });
+</script>
+</body>
+</html>
