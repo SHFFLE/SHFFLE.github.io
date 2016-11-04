@@ -271,107 +271,63 @@
             start.text("Reset");
             animateOld();
         });
+
         red.click(function(){
             if(clickable == false) {
             } else {
                 entered += "r";
                 red.fadeOut(100).fadeIn(100);
-                clickable = false;
-                if(entered.substring(0) != randomized.substring(0, entered.length)){
-                    entered = '';
-                    randomized = '';
-                    sound.play('error');
-                    alert("You lose! Score: "+ score + " || Try again.");
-                    score = 0;
-                    start.text('Start');
-                    gameActive = false;
-                } else if (entered == randomized) {
-                    sound.play('red');
-                    setTimeout(function(){animateOld();}, 1500);
-                    entered = '';
-                    score ++;
-                } else {
-                    sound.play('red');
-                    clickable = true;
-                }
+                rightOrWrong('red');
             }
         });
+
         blue.click(function(){
             if(clickable == false) {
             } else {
                 entered += "b";
                 blue.fadeOut(100).fadeIn(100);
-                clickable = false;
-                if(entered.substring(0) != randomized.substring(0, entered.length)){
-                    entered = '';
-                    randomized = '';
-                    sound.play('error');
-                    alert("You lose! Score: "+ score + " || Try again.");
-                    score = 0;
-                    start.text('Start');
-                    gameActive = false;
-                } else if (entered == randomized) {
-                    sound.play('blue');
-                    setTimeout(function(){animateOld();}, 1500);
-                    entered = '';
-                    score ++;
-                } else {
-                    sound.play('blue');
-                    clickable = true;
-                }
+                rightOrWrong('blue');
             }
         });
+
         green.click(function(){
             if(clickable == false) {
             } else {
                 entered += "g";
                 green.fadeOut(100).fadeIn(100);
-                clickable = false;
-                if(entered.substring(0) != randomized.substring(0, entered.length)){
-                    entered = '';
-                    randomized = '';
-                    sound.play('error');
-                    alert("You lose! Score: "+ score + " || Try again.");
-                    score = 0;
-                    start.text('Start');
-                    gameActive = false;
-                } else if (entered == randomized) {
-                    sound.play('green');
-                    setTimeout(function(){animateOld();}, 1500);
-                    entered = '';
-                    score ++;
-                } else {
-                    sound.play('green');
-                    clickable = true;
-                }
+                rightOrWrong('green');
             }
         });
+
         yellow.click(function(){
             if(clickable == false) {
             } else {
                 entered += "y";
                 yellow.fadeOut(100).fadeIn(100);
-                clickable = false;
-                if(entered.substring(0) != randomized.substring(0, entered.length)){
-                    entered = '';
-                    randomized = '';
-                    sound.play('error');
-                    alert("You lose! Score: "+ score + " || Try again.");
-                    score = 0;
-                    start.text('Start');
-                    gameActive = false;
-                } else if (entered == randomized) {
-                    sound.play('yellow');
-                    setTimeout(function(){animateOld();}, 1500);
-                    entered = '';
-                    score ++;
-                } else {
-                    sound.play('yellow');
-                    clickable = true;
-                }
-
+                rightOrWrong('yellow');
             }
         });
+
+        function rightOrWrong(color){
+            clickable = false;
+            if(entered.substring(0) != randomized.substring(0, entered.length)){
+                entered = '';
+                randomized = '';
+                sound.play('error');
+                alert("You lose! Score: "+ score + " || Try again.");
+                score = 0;
+                start.text('Start');
+                gameActive = false;
+            } else if (entered == randomized) {
+                sound.play(color);
+                setTimeout(function(){animateOld();}, 1500);
+                entered = '';
+                score ++;
+            } else {
+                sound.play(color);
+                clickable = true;
+            }
+        }
 
 
         function rgby() {
