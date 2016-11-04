@@ -74,40 +74,20 @@
             font-size: 12px;
             color: white;
         }
-        #dranks {
-            position: relative;
-            float:left;
-            width: 50%;
-            background-color: rgba(145, 144, 142, 0.5);
-
-
-        }
-        #dranks div {
-            position: relative;
-            height: auto;
-            width: 20%;
-            max-width: 20%;
-            max-height: 100%;
-            color: white;
-            float: left;
-        }
-        #dranks img {
-            width: 75%;
-            margin-left: 12.5%;
-        }
         #display {
             position: relative;
             float: right;
             width: 45%;
             background-color: rgba(145, 144, 142, 0.95);
-            padding-left: 5px;
         }
         #display div {
             position:relative;
+            display: block;
             color: white;
-            width: 100%;
-            max-width: 100%;
-            font-size: 2em;
+            width: 98%;
+            max-width: 98%;
+            margin-left: 2%;
+            font-size: 1.5em;
             margin-bottom: 2em;
         }
         #display button {
@@ -130,19 +110,48 @@
         .ltbluekarmotrine {
             color: lightblue;
         }
-        #dranks .count {
-            font-size: 2em;
+        #dranks {
+            position: relative;
+            float:left;
+            width: 50%;
+            background-color: rgba(145, 144, 142, 0.5);
+        }
+        #dranks div {
+            position: relative;
+            height: auto;
+            width: 20%;
+            max-width: 20%;
+            max-height: 100%;
+            float: left;
+        }
+        #dranks img {
+            width: 75%;
+            margin-left: 12.5%;
+        }
+        #dranks .name {
+            font-size: 1.5em;
             text-align: center;
-            width: 100%;
-            max-width: 100%;
+            width: 20%;
+        }
+        #dranks .count {
+            text-align: center;
+            width: 20%;
+            font-size: 2em;
+            color: white;
         }
         #result {
             position: absolute;
             top: 55%;
-            left: 50%;
+            left: 52%;
         }
         #blended {
             opacity: 0.4;
+        }
+        #adelhyde {
+            clear:left;
+        }
+        #rocks {
+            clear: left;
         }
     </style>
 </head>
@@ -164,31 +173,42 @@
 
 <h1 id="cbam">Cyberpunk Bartender Action Mode</h1>
 <div id="dranks">
+    <div class="name radelhyde">Adelhyde</div>
+    <div class="name ybronson">Bronson Extract</div>
+    <div class="name bdelta">Powdered Delta</div>
+    <div class="name gflanergide">Flanergide</div>
+    <div class="name ltbluekarmotrine">Karmotrine</div>
+
+
+
+
     <div id="adelhyde">
-        <div class="count radelhyde">Adelhyde</div>
         <img src="img/adelhyde.png" alt="">
-        <div id="adelhydecount" class="count">0</div>
     </div>
     <div id="bronson">
-        <div class="count ybronson">Bronson Extract</div>
         <img src="img/bronsonextract.png" alt="">
-        <div id="bronsoncount" class="count">0</div>
     </div>
+
     <div id="delta">
-        <div class="count bdelta">Powdered Delta</div>
         <img src="img/powdereddelta.png" alt="">
-        <div id="deltacount" class="count">0</div>
     </div>
+
     <div id="flanergide">
-        <div class="count gflanergide">Flanergide</div>
         <img src="img/flanergide.png" alt="">
-        <div id="flanergidecount" class="count">0</div>
     </div>
     <div id="karmotrine">
-        <div class="count ltbluekarmotrine">Karmotrine</div>
         <img src="img/karmotrine.png" alt="">
-        <div id="karmotrinecount" class="count">0</div>
     </div>
+    <div id="adelhydecount" class="count">0</div>
+    <div id="bronsoncount" class="count">0</div>
+    <div id="deltacount" class="count">0</div>
+    <div id="flanergidecount" class="count">0</div>
+    <div id="karmotrinecount" class="count">0</div>
+
+
+
+
+
     <div id="rocks"><img src="img/rocksinactive.png" alt=""></div>
     <div id="age"><img src="img/ageinactive.png" alt=""></div>
     <div id="blended"><img src="img/mixer.png"></div>
