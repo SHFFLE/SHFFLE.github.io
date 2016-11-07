@@ -3,162 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Simon</title>
-    <style>
-        body {
-            background-color: lightslategrey;
-            background-image: url("img/gcjill.jpg");
-            background-repeat: no-repeat;
-            background-size: 100%, 100%;
-        }
-        #buttonscontainer{
-            position:relative;
-            width: 80%;
-            height: auto;
-            margin: auto;
-            /*clear: both;*/
-        }
-        div {
-            position: absolute;
-            height: auto;
-            width: auto;
-            max-width: 50%;
-            max-height: 100%;
-            margin: 0;
-            color: white;
-            border: 0;
-            padding: 0;
-            margin: 0;
-        }
-        #red {
-            top: 0;
-            left: 0;
-        }
-        #green {
-            top: 0;
-            left: 50%;
-        }
-        #blue {
-            top: 49.6%;
-            left: 0;
-        }
-        #yellow {
-            top:49.6%;
-            left: 50%;
-        }
-        button {
-            margin-left: 25%;
-            width: 50%;
-            height: 20%;
-            font-size: 15vh;
-        }
-        #backgroundsquares {
-            height: auto;
-            width: auto;
-            max-width: 100%;
-            max-height: 100%;
-            margin: 0;
-            padding: 0;
-            z-index: -1;
-        }
-        img {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 100%;
-        }
-        audio {
-            position: fixed;
-            right: 0;
-            top: 0;
-            float: right;
-            width: 20em;
-        }
-        #cbam {
-            font-size: 12px;
-            color: white;
-        }
-        #display {
-            position: relative;
-            float: right;
-            width: 45%;
-            background-color: rgba(145, 144, 142, 0.95);
-        }
-        #display div {
-            position:relative;
-            display: block;
-            color: white;
-            width: 98%;
-            max-width: 98%;
-            margin-left: 2%;
-            font-size: 1.5em;
-            margin-bottom: 2em;
-        }
-        #display button {
-            display: inline;
-            width: 50%;
-            margin: 0;
-        }
-        .radelhyde {
-            color: red;
-        }
-        .ybronson {
-            color: yellow;
-        }
-        .bdelta {
-            color: blue;
-        }
-        .gflanergide {
-            color: green;
-        }
-        .ltbluekarmotrine {
-            color: lightblue;
-        }
-        #dranks {
-            position: relative;
-            float:left;
-            width: 50%;
-            background-color: rgba(145, 144, 142, 0.5);
-        }
-        #dranks div {
-            position: relative;
-            height: auto;
-            width: 20%;
-            max-width: 20%;
-            max-height: 100%;
-            float: left;
-        }
-        #dranks img {
-            width: 75%;
-            margin-left: 12.5%;
-        }
-        #dranks .name {
-            font-size: 1.5em;
-            text-align: center;
-            width: 20%;
-        }
-        #dranks .count {
-            text-align: center;
-            width: 20%;
-            font-size: 2em;
-            color: white;
-        }
-        #result {
-            position: absolute;
-            top: 50%;
-            left: 48%;
-        }
-        #blended {
-            opacity: 0.4;
-        }
-        #adelhyde {
-            clear:left;
-        }
-        #rocks {
-            clear: left;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/mymenuattempt.css">
+    <link rel="stylesheet" href="css/simon.css">
 </head>
 <body>
+<nav>
+    <a id="hamburger" href="#">H</a>
+    <ul>
+        <li class="header">Nicholas Ring</li>
+        <a href="../index.html"><li class="list-link">Home</li></a>
+        <a href="#"><li class="list-link">About</li></a>
+        <a href="#"><li class="list-link">Resume</li></a>
+        <a href="#"><li class="list-link">Contact</li></a>
+        <a href="#"><li class="list-submenu-header">Projects</li></a>
+        <ul class="list-submenu">
+            <a href="../calculator/calculator.html"><li class="list-link">Calculator</li></a>
+            <a href="#"><li class="list-link active">Simon</li></a>
+            <a href="../weathermap/weather_map.html"><li class="list-link">Weather Map</li></a>
+        </ul>
+    </ul>
+</nav>
+
+<main>
 <audio id="music" preload controls src="sounds/KarmotrineDream.mp3"></audio>
 
 <!-- Simon -->
@@ -173,7 +39,6 @@
 <button id="start">Start</button>
 
 <!-- Super less than secret second game! :O -->
-
 <h1 id="cbam">Cyberpunk Bartender Action Mode</h1>
 <div id="dranks">
     <div class="name radelhyde">Adelhyde</div>
@@ -227,11 +92,14 @@
     <div id="tags"></div>
 </div>
 <div id="result"></div>
+</main>
 
 
 <script src="js/recipes.js"></script>
 <script src="js/howler.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="../js/mymenuattempt.js"></script>
+
 <script>
         var randomized = '';
         var entered = '';

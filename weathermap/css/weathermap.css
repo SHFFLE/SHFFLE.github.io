@@ -1,0 +1,48 @@
+#container{
+    background-color: #0a68b4;
+    height: 275px;
+    width: 100%;
+    margin: auto;
+}
+.box{
+    float: left;
+    height: 195px;
+    width: 30%;
+    margin-left: 2.5%;
+    margin-top: 5px;
+    background-color: #0d87e9;
+    align-content: center;
+    text-align: center;
+}
+
+#map-canvas {
+    position: relative;
+    height: 450px;
+    margin: auto;
+    width: 100%
+}
+.boxcontent {
+    text-align: center;
+}
+h1 {
+    text-align: center;
+    margin: 5px;
+}
+p {
+    margin: 5px;
+}
+#lat {
+    display: none;
+}
+#lon {
+    display: none;
+}
+#submit1 {
+    display:none;
+}
+#input {
+    display:block;
+    align-content: center;
+    width: 20%;
+    margin: auto;
+}
