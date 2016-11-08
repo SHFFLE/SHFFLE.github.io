@@ -45,7 +45,7 @@ button {
     margin-left: 25%;
     width: 50%;
     height: 20%;
-    font-size: 15vh;
+    font-size: 10vw;
 }
 #backgroundsquares {
     height: auto;
@@ -67,7 +67,7 @@ audio {
     right: 0;
     top: 0;
     float: right;
-    width: 20em;
+    width: 20vw;
     z-index: 2;
 }
 #cbam {
@@ -92,6 +92,7 @@ audio {
 }
 #display button {
     display: inline;
+    font-size: 5vw;
     width: 50%;
     margin: 0;
 }
@@ -115,6 +116,7 @@ audio {
     float:left;
     width: 50%;
     background-color: rgba(145, 144, 142, 0.5);
+    z-index: 20;
 }
 #dranks div {
     position: relative;
@@ -143,6 +145,7 @@ audio {
     position: absolute;
     top: 50%;
     left: 48%;
+    z-index: 25;
 }
 #blended {
     opacity: 0.4;
@@ -152,4 +155,38 @@ audio {
 }
 #rocks {
     clear: left;
+}
+@media only screen and (max-device-width : 480px) {
+    body{
+        background-image: url("../img/gcjillmobile.png");
+        background-position: 0px 2.5em;
+        background-size: 100%, 100%;
+    }
+    #dranks {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        background-color: rgba(145, 144, 142, 0.5);
+    }
+    #display {
+        float: none;
+        max-width: 100%;
+        width: 100%;
+    }
+    #dranks .name {
+        font-size: 4vw;
+    }
+    #dranks .count {
+        font-size: 4.5vw;
+    }
+    audio {
+        width: 8em;
+        z-index: 2000;
+        top: inherit;
+        bottom: 0;
+        right: 0;
+    }
+    #buttonscontainer{
+        max-width: 80%;
+    }
 }

@@ -52,8 +52,8 @@ nav .list-submenu {
     margin-left: 200px;
     border: solid 1px lightslategrey;
 }
-#hamburger {
-    display:none;
+.hamburger {
+    display: none;
 }
 main {
     margin-left: 200px;
@@ -82,12 +82,32 @@ body {
         padding: 0;
         font-size: 1.5em;
     }
-    #hamburger {
-        display: inline-block;
-        position: absolute;
-        left: 95%;
-        top: 10%;
+    #hamburger{
+        position: fixed;
+        left: 90%;
+        top: 10px;
+        z-index: 200;
     }
+    .hamburger {
+        position: absolute;
+        display: inline-block;
+        width: 1.25em;
+        height: 0.8em;
+
+        border-top: 0.2em solid #fff;
+        border-bottom: 0.2em solid #fff;
+    }
+
+    .hamburger:before {
+        content: "";
+        position: absolute;
+        top: 0.3em;
+        left: 0px;
+        width: 100%;
+        border-top: 0.2em solid #fff;
+    }
+
+
     nav ul {
         width: 100%;
         list-style: none;
@@ -127,10 +147,16 @@ body {
     }
     nav .list-submenu {
         position: relative;
-        background-color: black;
+        background-color: darkblue;
         display: none;
-        top: -42px;
-        margin-left: 200px;
-        border: solid 1px lightslategrey;
+        top: 0;
+        margin-left: 0;
+        border: none;
+    }
+    main {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 2.5em;
+
     }
 }

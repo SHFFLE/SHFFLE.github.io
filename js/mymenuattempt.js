@@ -1,6 +1,9 @@
 var submenuHeader = $('nav .list-submenu-header');
+var nav = $('nav');
+var navlistlink = $('nav .list-link');
 var listSubmenu = $('nav .list-submenu');
 var hamburger = $('#hamburger');
+var hamburgeron = false;
 var main = $('main');
 
 submenuHeader.click(function(){
@@ -9,4 +12,20 @@ submenuHeader.click(function(){
 });
 main.on('click', function(){
     listSubmenu.css("display", "none");
+});
+hamburger.on('click', function(){
+    if(hamburgeron == false){
+    nav.height("100%");
+    navlistlink.css("display", "block");
+        submenuHeader.css("display", "block");
+        listSubmenu.css("display", "block");
+    hamburgeron = true;
+    } else if (hamburgeron == true){
+        nav.height("1.5em");
+        navlistlink.css("display", "none");
+        submenuHeader.css("display", "none");
+        listSubmenu.css("display", "none");
+        hamburgeron = false;
+    }
+
 });
