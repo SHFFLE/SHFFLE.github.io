@@ -11,7 +11,7 @@
 }
 #calculator {
     padding-top: 20px;
-    width: 330px;
+    width: 350px;
     height: 100%;
     display: block;
     float: none;
@@ -113,12 +113,12 @@ ul {
 }
 @media only screen and (max-device-width : 480px) {
     #leftOp {
-        width: 130px;
+        width: 110px;
     }
     #Op {
         width: 25px
     }
     #rightOp{
-        width: 130px;
+        width: 110px;
     }
 }
