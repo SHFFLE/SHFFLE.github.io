@@ -33,6 +33,7 @@ input {
     float: left;
     border: 1px solid black;
     height: 25px;
+    display: inline-block;
     margin-right: 6px;
     margin-bottom: 5px;
     font-size: medium;
@@ -112,12 +113,12 @@ ul {
 }
 @media only screen and (max-device-width : 480px) {
     #leftOp {
-        width: 120px;
+        width: 130px;
     }
     #Op {
-        width: 20px
+        width: 25px
     }
     #rightOp{
-        width: 120px;
+        width: 130px;
     }
 }
