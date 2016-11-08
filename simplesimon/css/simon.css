@@ -183,6 +183,7 @@ audio {
         width: 8em;
         z-index: 2000;
         top: inherit;
+        height: 5em;
         bottom: 0;
         right: 0;
     }
