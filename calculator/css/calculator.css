@@ -11,7 +11,7 @@
 }
 #calculator {
     padding-top: 20px;
-    width: 340px;
+    width: 330px;
     height: 100%;
     display: block;
     float: none;
@@ -109,4 +109,15 @@ ul {
 }
 .addtl:active{
     background-color: #4e9f15;
+}
+@media only screen and (max-device-width : 480px) {
+    #leftOp {
+        width: 120px;
+    }
+    #Op {
+        width: 20px
+    }
+    #rightOp{
+        width: 120px;
+    }
 }
