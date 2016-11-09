@@ -1,7 +1,7 @@
 nav {
     font-family: "Microsoft Sans Serif", sans-serif, monospace;
     height: 100%;
-    background-color: darkblue;
+    background-color: rgb(2, 21, 49);
     color: white;
     position: fixed;
     left: 0;
@@ -29,13 +29,13 @@ nav a {
     width: 100%;
 }
 nav li:hover {
-    background-color: #1f8dd6;
+    background-color: rgb(18, 123, 160);
 }
 nav .active {
-    background-color: #66afe9;
+    background-color: rgb(21, 61, 105);
 }
 nav .header {
-    background-color: darkslateblue;
+    background-color: rgb(49, 31, 78);
     font-size: 1.2em;
     border-bottom: solid 2px lightslategrey;
 }
@@ -46,7 +46,7 @@ nav .list-submenu-header{
 }
 nav .list-submenu {
     position: relative;
-    background-color: black;
+    background-color: rgb(21, 3, 51);
     display: none;
     top: -42px;
     margin-left: 200px;

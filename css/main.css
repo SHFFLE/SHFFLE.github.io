@@ -1,0 +1,40 @@
+body {
+    background-image: url("../img/gc.jpg");
+    background-repeat: no-repeat;
+    background-size: 200vh, 200vw;
+    background-position: 200px 0px;
+    background-attachment: fixed;
+    background-color: rgb(21, 3, 51);
+}
+main {
+    height: 100%;
+}
+#content {
+    text-align: center;
+    align-content: center;
+    color: white;
+    height: 100%;
+    width: 90%;
+    margin: auto;
+    background-color: rgba(65, 69, 76, 0.9);
+}
+#content div{
+    width: 95%;
+    margin: auto;
+    font-size: 2em;
+    text-align: left;
+
+}
+#content h1 {
+    font-size: 3em;
+}
+#content img {
+    margin: auto;
+}
+@media only screen and (max-device-width : 480px) {
+    body {
+        background-image: url("../img/gc.jpg");
+        background-position: 0px 2.5em;
+        background-size: 200vh, 100%;
+    }
+}
