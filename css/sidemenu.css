@@ -39,10 +39,17 @@ nav .header {
     font-size: 1.2em;
     border-bottom: solid 2px lightslategrey;
 }
+nav .list-link{
+    display: block;
+}
+nav .header:hover {
+    background-color: rgb(49, 31, 78);
+}
 nav .list-submenu-header{
     font-size: 1.2em;
     border-top: solid 2px lightslategrey;
     border-bottom: solid 2px lightslategrey;
+    display: block;
 }
 nav .list-submenu {
     position: relative;
@@ -73,7 +80,7 @@ body {
         font-family: "Microsoft Sans Serif", sans-serif, monospace;
         width: 100%;
         height: 1.5em;
-        background-color: darkblue;
+        background-color: rgb(2, 21, 49);
         color: white;
         position: fixed;
         left: 0;
@@ -128,16 +135,19 @@ body {
         width: 100%;
     }
     nav li:hover {
-        background-color: #1f8dd6;
+        background-color: rgb(18, 123, 160);
     }
     nav .active {
-        background-color: #66afe9;
+        background-color: rgb(21, 61, 105);
     }
     nav .header {
-        background-color: darkblue;
+        background-color: rgb(49, 31, 78);
         font-size: 1.2em;
         border-bottom: solid 2px lightslategrey;
         height: 10%;
+    }
+    nav .header:hover {
+        background-color: rgb(49, 31, 78);
     }
     nav .list-submenu-header{
         display: none;
@@ -147,7 +157,7 @@ body {
     }
     nav .list-submenu {
         position: relative;
-        background-color: darkblue;
+        background-color: rgb(2, 21, 49);
         display: none;
         top: 0;
         margin-left: 0;

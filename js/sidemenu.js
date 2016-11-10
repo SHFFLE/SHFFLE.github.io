@@ -27,5 +27,25 @@ hamburger.on('click', function(){
         listSubmenu.css("display", "none");
         hamburgeron = false;
     }
-
 });
+
+if (matchMedia) {
+    var mq = window.matchMedia("(min-width: 480px)");
+    mq.addListener(WidthChange);
+    WidthChange(mq);
+}
+
+function WidthChange(mq) {
+    if (mq.matches) {
+        navlistlink.css("display", "block");
+        submenuHeader.css("display", "block");
+        listSubmenu.css("display", "none");
+    } else {
+        nav.height("1.5em");
+        navlistlink.css("display", "none");
+        submenuHeader.css("display", "none");
+        listSubmenu.css("display", "none");
+        hamburgeron = false;
+    }
+}
+WidthChange(mq);
