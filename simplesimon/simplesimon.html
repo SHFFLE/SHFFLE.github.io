@@ -13,6 +13,8 @@
         <li class="header">Nicholas Ring</li>
         <a href="../index.html"><li class="list-link">Home</li></a>
         <a href="../about.html"><li class="list-link">About</li></a>
+        <a href="../blog.html"><li class="list-link">Blog</li></a>
+
         <a href="../resume.html"><li class="list-link">Resume</li></a>
         <a href="../contact.html"><li class="list-link">Contact</li></a>
         <a href="#"><li class="list-submenu-header">Projects</li></a>
@@ -168,7 +170,7 @@
             score = 0;
             alert("Starting now!");
             start.text("Reset");
-            animateOld();
+            animateSequence();
         });
 
         red.click(function(){
@@ -219,7 +221,7 @@
                 gameActive = false;
             } else if (entered == randomized) {
                 sound.play(color);
-                setTimeout(function(){animateOld();}, 1500);
+                setTimeout(function(){animateSequence();}, 1500);
                 entered = '';
                 score ++;
             } else {
@@ -241,7 +243,7 @@
                 randomized += 'y';
             }
         }
-        function animateOld() {
+        function animateSequence() {
             var i = 0;
             rgby();
             var IntervalOne = setInterval(function () {

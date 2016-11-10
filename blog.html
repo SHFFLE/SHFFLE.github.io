@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidemenu.css">
+    <style>
+        .post {
+            width: 80%;
+            margin: auto;
+            position: relative;
+            top: 20px;
+            padding: 20px;
+            background-color: rgba(80, 80, 80, 0.9);
+        }
+        #content {
+            background-color: transparent;
+            margin-bottom: 20px;
+        }
+        #content h1 {
+            text-align: center;
+            margin: auto;
+        }
+        #content div {
+            font-size: 1.3em;
+        }
+        #content .post a {
+            color: yellow;
+        }
+        pre {
+            background-color: rgba(80, 80, 80, 0.9);
+        }
+    </style>
+</head>
+<body>
+<a href="#" id="hamburger"><span class="hamburger"></span></a>
+<nav>
+    <ul>
+        <li class="header">Nicholas Ring</li>
+        <a href="index.html"><li class="list-link">Home</li></a>
+        <a href="about.html"><li class="list-link">About</li></a>
+        <a href="#"><li class="list-link active">Blog</li></a>
+        <a href="resume.html"><li class="list-link">Resume</li></a>
+        <a href="contact.html"><li class="list-link">Contact</li></a>
+        <a href="#"><li class="list-submenu-header">Projects</li></a>
+        <ul class="list-submenu">
+            <a href="calculator/calculator.html"><li class="list-link">Calculator</li></a>
+            <a href="simplesimon/simplesimon.html"><li class="list-link">Simon</li></a>
+            <a href="weathermap/weather_map.html"><li class="list-link">Weather Map</li></a>
+        </ul>
+    </ul>
+</nav>
+<main>
+    <div id="content">
+        <div class="post">
+            <h1>Simon Walkthrough</h1>
+            <p>Let's start with the basic setup. For ease, let's just go ahead and use the image files I used - you can save each of these with right-click -> Save As</p>
+            <p><a href="simplesimon/img/red.png">Red</a> <a href="simplesimon/img/green.png">Green</a> <a href="simplesimon/img/blue.png">Blue</a> <a href="simplesimon/img/yellow.png">Yellow</a> <a href="simplesimon/img/squares.png">Background Squares</a></p>
+            <p>Now that you've got all those, we need to put them all in a folder easily accessed from the base html file.</p>
+            <h2>The HTML</h2>
+            <p>The base HTML for Simon is very simple, because all the important stuff happens in the CSS and the JS. We have a div that holds all 4 colors, and a button to start the game.</p>
+            <pre><code>
+                &lt;div id=&quot;buttonscontainer&quot;&gt;
+                    &lt;img id=&quot;backgroundsquares&quot; src=&quot;img/squares.png&quot;&gt;
+                    &lt;div id=&quot;red&quot;&gt;&lt;img src=&quot;img/red.png&quot;&gt;&lt;/div&gt;
+                    &lt;div id=&quot;green&quot;&gt;&lt;img src=&quot;img/green.png&quot;&gt;&lt;/div&gt;
+                    &lt;div id=&quot;blue&quot;&gt;&lt;img src=&quot;img/blue.png&quot;&gt;&lt;/div&gt;
+                    &lt;div id=&quot;yellow&quot;&gt;&lt;img src=&quot;img/yellow.png&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;button id=&quot;start&quot;&gt;Start&lt;/button&gt;
+                </code></pre>
+            <p>They lack formatting like this, though. We need to move on to---</p>
+            <h2>The CSS</h2>
+            <p>So, CSS. First, we want to try to make it a bit aesthetically pleasing, and not always mashed against the far left of the window, right?</p>
+            <pre><code>
+                #buttonscontainer{
+                    position: relative;
+                    width: 80%;
+                    height: auto;
+                    margin: auto;
+                }
+            </code></pre>
+            <p>Next, we need to make each of the color divs size themselves properly so that two will fit on each of the 2 rows we want to have.</p>
+            <pre><code>
+                div {
+                    position: absolute;
+                    height: auto;
+                    width: auto;
+                    max-width: 50%;
+                    max-height: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+            </code></pre>
+            <p>Max-width and max-height are very useful in this case, in that with width and height set to auto, the boxes, which are all the same proportions, will automatically resize themselves, and never take up more than 50 percent of the width of the container.</p>
+            <p>Next is formatting the imgs so they fill their containing div properly.</p>
+            <pre><code>
+                img {
+                    width: auto;
+                    height: auto;
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            </code></pre>
+            <p>Following that, we have to make the background squares fit properly behind them, and also scale along with them.</p>
+            <pre><code>
+                #backgroundsquares {
+                    margin: 0;
+                    padding: 0;
+                    z-index: -1;
+                }
+            </code></pre>
+            <p>What z-index of -1 does, is it forces the #backgroundsquares img to be behind all the other elements. It puts it on a different layer from the rest</p>
+            <p>Next, is setting the positioning of the colored individual boxes to overlap with the background boxes correctly. Remember, they're on absolute positioning, so they won't move the img around, and they won't respect the img's boundaries.</p>
+            <pre><code>
+                #red {
+                    top: 0;
+                    left: 0;
+                }
+                #green {
+                    top: 0;
+                    left: 50%;
+                }
+                #blue {
+                    top: 49.6%;
+                    left: 0;
+                }
+                #yellow {
+                    top:49.6%;
+                    left: 50%;
+                }
+            </code></pre>
+            <p>This is fairly basic positioning. The reason for 49.6 and not 50 percent, is that with these images, using a lower value causes them to overlap, and a higher value causes them to have a gap. Just does in this situation.</p>
+            <p>Finally, the button. This is pretty straightforward.</p>
+            <pre><code>
+                button {
+                    margin-left: 25%;
+                    width: 50%;
+                    height: 20%;
+                    font-size: 10vw;
+                }
+            </code></pre>
+            <p>Pretty easy. Now, on to the real core of everything:</p>
+            <h2>The Javascript</h2>
+            <p>Here's where things get real fun. Now, there's a dependency you'll need to put into your body for this to work.</p>
+            <pre><code>
+                &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;
+            </code></pre>
+            <p>Now, first things first, let's get some basic variables out of the way.</p>
+            <pre><code>
+                var randomized = '';
+                var entered = '';
+                var clickable = false;
+                var gameActive = false;
+                var score = 0;
+                var red = $('#red');
+                var blue = $('#blue');
+                var green = $('#green');
+                var yellow = $('#yellow');
+                var start = $('#start');
+            </code></pre>
+            <p>These should all be pretty self-explanatory.</p>
+            <p>Now on to the actual code. First thing we want to set up is simply a function to run a random number generator, generating between 0 and 3. We could do 1 through 4 instead with Math.ciel() if we wanted, but either way works - just changes a couple numbers in the next function.</p>
+            <pre><code>
+                var randomizer = function(){return Math.floor(Math.random() * 4)};
+            </code></pre>
+            <p>Pretty easy. Next, we need to make a function that translates that number into a letter, which is appended to the variable randomized.</p>
+            <pre><code>
+                function rgby() {
+                    var random = randomizer();
+                    if(random == 0){
+                        randomized += 'r';
+                    } else if (random == 1) {
+                        randomized += 'g';
+                    } else if (random == 2) {
+                        randomized += 'b';
+                    } else {
+                        randomized += 'y';
+                    }
+                }
+            </code></pre>
+            <p>Also a fairly simple function, this is pretty easy to understand. For each possible random number, the first letter of one of our colors is assigned to it.</p>
+            <p>Next, we need to add a sequence that animates each button in the generated sequence. We want this to work for all prior buttons in the sequence too, so that it shows the full pattern plus one every time the user completes a sequence correctly.</p>
+            <pre><code>
+                function animateSequence() {
+                    var i = 0;
+                    rgby();
+                    var IntervalOne = setInterval(function () {
+                        if (randomized.charAt(i) == 'r') {
+                            red.fadeOut(300).fadeIn(300);
+                        } else if (randomized.charAt(i) == 'g') {
+                            green.fadeOut(300).fadeIn(300);
+                        } else if (randomized.charAt(i) == 'b') {
+                            blue.fadeOut(300).fadeIn(300);
+                        } else if (randomized.charAt(i) == 'y') {
+                            yellow.fadeOut(300).fadeIn(300);
+                        }
+                        if (i == randomized.length - 1) {
+                            clearInterval(IntervalOne);
+                            clickable = true;
+                        } else {
+                            i++;
+                        }
+                    }, 800);
+                }
+            </code></pre>
+            <p>As you can see, we do this with a setInterval working in a somewhat similar method to a forEach loop. It initializes the variable i = 0 when it's called
+            adds the random new color to the sequence, and then based on which character is in each spot in the sequence, animates the corresponding color to fade out and back in - when it fades out, it reveals
+            the background underneath, so it appears like a color change. At the end of the animation, it checks if it's one loop from the end of the full sequence.
+            If it is, it runs one more time and then stops, and turns clickable (a state we set earlier on) to true. Otherwise, it keeps trucking. The 800 at the end tells setInterval to run the individual animations 800ms apart.</p>
+            <p>Now, let's make it possible to actually start the game. Kind of.</p>
+            <pre><code>
+                start.click(function(){
+                    gameActive = true;
+                    randomized = '';
+                    entered = '';
+                    score = 0;
+                    alert("Starting now!");
+                    start.text("Reset");
+                    animateSequence();
+                });
+            </code></pre>
+            <p>So, this simply sets gameActive, another state variable we set earlier, to true, resets randomized, entered, and score, presents an alert to the user,
+            changes the text on the start button to instead display Reset, and then runs the animateSequence function we just finished. Good. Except none of the buttons can be clicked,
+            so at this point we've just made a random single blink happen (Technically you could just hit start and ok on the alert and get more than one, I suppose).
+            This isn't a game! Yet.</p>
+            <p>Now we have to make the buttons do something.</p>
+            <pre><code>
+                red.click(function(){
+                    if(clickable == false) {
+                    } else {
+                        entered += "r";
+                        red.fadeOut(100).fadeIn(100);
+                        rightOrWrong();
+                    }
+                });
+
+                blue.click(function(){
+                    if(clickable == false) {
+                    } else {
+                        entered += "b";
+                        blue.fadeOut(100).fadeIn(100);
+                        rightOrWrong();
+                    }
+                });
+
+                green.click(function(){
+                    if(clickable == false) {
+                    } else {
+                        entered += "g";
+                        green.fadeOut(100).fadeIn(100);
+                        rightOrWrong();
+                    }
+                });
+
+                yellow.click(function(){
+                    if(clickable == false) {
+                    } else {
+                        entered += "y";
+                        yellow.fadeOut(100).fadeIn(100);
+                        rightOrWrong();
+                    }
+                });
+            </code></pre>
+            <p>So, you might notice these are all calling a function we haven't seen yet. We'll get back to that. First, though,
+            note the if-else statement each begins with - this makes the function do absolutely nothing in clickable is not set to true - this means you can't interrupt
+            the previous sequence animating until clickable gets set to true at the end.</p>
+            <p>So what's this rightOrWrong function? Well, it's actually a series of checks and responses based on if the button was correct, incorrect, or the last in the current sequence.</p>
+            <pre><code>
+                function rightOrWrong(color){
+                    clickable = false;
+                    if(entered.substring(0) != randomized.substring(0, entered.length)){
+                        entered = '';
+                        randomized = '';
+                        alert("You lose! Score: "+ score + " || Try again.");
+                        score = 0;
+                        start.text('Start');
+                        gameActive = false;
+                    } else if (entered == randomized) {
+                        setTimeout(function(){animateSequence();}, 1500);
+                        entered = '';
+                        score ++;
+                    } else {
+                        clickable = true;
+                    }
+                }
+            </code></pre>
+            <p>So, when this runs, it immediately sets clickable to false while it runs the check. First if statement checks if entered.substring(0) is not equal to randomized.substring from 0 to entered.length.
+            This is the check that makes sure the entered button isn't incorrect. If this triggers, it sets entered and randomized back to nothing, and then
+            provides an alert with the player's score. After that alert has been ok'd, it resets score to 0 for the next run, changes the start button back to
+            saying start, and sets gameActive back to false.</p>
+            <p>The next check checks to see if the entirety of entered is equal to the entirety of randomized - this would only happen if the user had properly entered the correct colors in the correct order for the full sequence length.
+            If it is correct, it runs animateSequence after a brief delay, resets entered to nothing (note that it keeps randomized - if we reset randomized you'd only ever have to actually remember the most recent color),
+            and adds 1 to the score.</p>
+            <p>Finally, if neither of those is the case, the clicked color has to be a correct color in the sequence, but the sequence isn't over, so it simply sets clickable back to true and lets the user continue on their way.</p>
+        </div>
+    </div>
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="js/sidemenu.js"></script>
+</body>
+</html>
